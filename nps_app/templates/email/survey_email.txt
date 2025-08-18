@@ -1,0 +1,13 @@
+Olá {{ cliente.nome or 'Cliente' }},
+
+Gostaríamos de convidá-lo a participar de nossa pesquisa de satisfação. Sua opinião é muito importante para nós!
+
+Por favor, clique no link abaixo para responder à pesquisa "{{ pesquisa.nome }}":
+{{ url_for('main_bp.survey', pesquisa_id=pesquisa.id, cliente_id=cliente.id, _external=True) }}
+
+O link é válido apenas para você e pode ser usado uma única vez.
+
+Agradecemos sua colaboração!
+
+Atenciosamente,
+A Equipe.

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Dashboard de Pesquisas</h1>
+    <p><a href="{{ url_for('main_bp.index') }}">Voltar para a página inicial</a></p>
+    <hr>
+
+    {% if pesquisas %}
+        <h2>Todas as Pesquisas</h2>
+        <ul>
+            {% for pesquisa in pesquisas %}
+                <li>
+                    <strong>{{ pesquisa.nome }}</strong> (Criada em: {{ pesquisa.data_criacao.strftime('%d/%m/%Y') }})
+                    <a href="{{ url_for('main_bp.survey_results', pesquisa_id=pesquisa.id) }}">Ver Resultados</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma pesquisa foi criada ainda.</p>
+    {% endif %}
+{% endblock %}
