@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pesquisa de Satisfação</title>
+</head>
+<body>
+    <p>Olá {{ cliente.nome or 'Cliente' }},</p>
+    <p>Gostaríamos de convidá-lo a participar de nossa pesquisa de satisfação. <strong>Sua opinião é muito importante para nós!</strong></p>
+    <p>Por favor, clique no link abaixo para responder à pesquisa "{{ pesquisa.nome }}":</p>
+    <p>
+        <a href="{{ url_for('main_bp.survey', pesquisa_id=pesquisa.id, cliente_id=cliente.id, _external=True) }}">
+            Responder à Pesquisa
+        </a>
+    </p>
+    <p>O link é válido apenas para você e pode ser usado uma única vez.</p>
+    <p>Agradecemos sua colaboração!</p>
+    <p>Atenciosamente,<br>A Equipe.</p>
+</body>
+</html>

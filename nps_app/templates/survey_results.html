@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Resultados para: {{ pesquisa.nome }}</h1>
+    <p><a href="{{ url_for('main_bp.dashboard') }}">Voltar para o Dashboard</a></p>
+    <hr>
+
+    {% if results.total_respostas > 0 %}
+        <h2>Score NPS: <span style="font-size: 1.5em; color: {% if results.nps_score > 50 %}green{% elif results.nps_score > 0 %}orange{% else %}red{% endif %};">{{ results.nps_score }}</span></h2>
+
+        <h3>Resumo</h3>
+        <ul>
+            <li><strong>Total de Respostas:</strong> {{ results.total_respostas }}</li>
+            <li><strong>Promotores (9-10):</strong> {{ results.promotores }} ({{ (results.promotores / results.total_respostas * 100)|round(1) }}%)</li>
+            <li><strong>Passivos (7-8):</strong> {{ results.passivos }} ({{ (results.passivos / results.total_respostas * 100)|round(1) }}%)</li>
+            <li><strong>Detratores (0-6):</strong> {{ results.detratores }} ({{ (results.detratores / results.total_respostas * 100)|round(1) }}%)</li>
+        </ul>
+
+        <hr>
+
+        <h3>Comentários Recebidos</h3>
+        {% set comments = pesquisa.respostas|selectattr('comentario')|list %}
+        {% if comments %}
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                {% for resposta in comments %}
+                    {% if resposta.comentario.strip() %}
+                        <li>
+                            <strong>Nota {{ resposta.nota }}:</strong> "{{ resposta.comentario }}"
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum comentário foi deixado para esta pesquisa.</p>
+        {% endif %}
+
+    {% else %}
+        <p>Ainda não há respostas para esta pesquisa.</p>
+    {% endif %}
+{% endblock %}
